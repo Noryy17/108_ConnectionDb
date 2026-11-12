@@ -21,5 +21,15 @@ const pool = new Pool({
 })
 
 
-
+app.get('/', (req, res) => {
+    pool.query('SELECT * FROM biodata ORDER BY id ASC')
+        .then(result => {
+            console.log('TEST DATA :', result.rows)
+            res.json(result.rows)
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).send('Internal Server Error')
+        })
+})
 
